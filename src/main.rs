@@ -5,26 +5,52 @@ use std::path::Path;
 use std::env;
 use std::process::Command;
 
-static SEED:u64 = 0x1337;
+static SEED:u64 = 0x1337133713371337;
 
-fn rand() -> u64{
+fn rand_64() -> u64{
     let mut rand_num:u64 = 0;
     rand_num ^= (SEED << 13) & 0xffffffffffffffff;
     rand_num ^= (rand_num << 17) & 0xffffffffffffffff;
     rand_num ^= (rand_num << 43) & 0xffffffffffffffff;
 
-    return rand_num
+    return rand_num;
 }
 
+fn rand_32() -> u32{
+    return rand_64() as u32;
+}
+
+fn rand_16() -> u16{
+    return rand_64() as u16;
+}
+
+fn elf_gen() -> Vec<u8>{
+    let mut elf_header = vec![0x7f,0x45,0x4c,0x46];
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_32().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_32().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_32().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_32().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_32().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    elf_header.append(&mut rand_16().to_be_bytes().to_vec());
+    
+    return elf_header;
+}
 fn main() {
     println!("IDK fuzzer v0.1.0 objdump");
     
     let args: Vec<String> = env::args().collect();
     
-    let option= &args[1];   // Option1 : STDIN ? Option2 : FileIO ?
+    //let _option= &args[1];   // Option1 : STDIN ? Option2 : FileIO ?
 
     fs::create_dir_all("corpus").expect("Failed to create path");
-    let rand_num = rand();
+    let rand_num = rand_32();
     
     let path_name: String = "corpus/".to_string() + &rand_num.to_string();
     let path = Path::new(&path_name);
@@ -32,11 +58,13 @@ fn main() {
         Err(why) => panic!("couldn't create directory {}",why),
         Ok(file) => file,
     };
-    file.write_all(&rand_num.to_be_bytes());
+    file.write_all(elf_gen().as_slice());
+    //file.write_all(&rand_num.to_be_bytes());
     
     Command::new("objdump")
         .arg("-s")
-        .arg(path_name)
+        .arg(&path_name)
         .spawn()
         .expect("Failed to launch objdump");
+  
 }
