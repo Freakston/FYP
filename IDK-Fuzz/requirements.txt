@@ -1,0 +1,5 @@
+pymongo
+pika
+dnspython
+podman
+colorama
