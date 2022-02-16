@@ -25,3 +25,15 @@ def rabPublishMessage(ch, message):
     except Exception as e:
         print(f"Failed publishing the message{e}")
 
+def rabPublishMessageInfo(ch, message):
+    try:
+        ch.basic_publish(
+            exchange="",
+            routing_key="dep-queue",
+            body=json.dumps(message),
+            properties=pika.BasicProperties(
+                delivery_mode=2,  
+            )
+        )
+    except Exception as e:
+        print(f"Failed publishing the message{e}")
