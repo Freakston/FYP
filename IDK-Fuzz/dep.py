@@ -15,11 +15,10 @@ class dep():
                 "FuzzNo": 1,
                 "appName": "name",
                 "count": 3,
-                "Image": "hello-world:latest"
+                "Image": "idk-fuzz:latest"
             }
         '''
         fuzzjob = json.loads(body)
-        print(fuzzjob)
         pod = podmanManager()
         pod.createPod(fuzzjob)
 
