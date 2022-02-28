@@ -1,9 +1,11 @@
-from email import message
+import subprocess
+import time
 import json
 import os 
 import ctypes
-from core.Utils.utils import rabConnect
 from base64 import b64decode
+from core.Utils.utils import rabConnect
+import sys
 
 class PosixSpawn():
         def __init__(self):
@@ -46,32 +48,33 @@ class Fuzzer():
     def run_posix(self,message):
         # Assuming the struct of the message as following
         # message = {exe : <executable_name>; input : <input>}
-        exe = message["exe"]
-        inp = message["input"]
+        exe = message['exe']
+        inp = message['input']
         self.ps.execute(exe,inp)
 
     def run_subprocess(self, message):
-        cmd = message["exe"]
-        inp = message["input"]
+        cmd = message['exe']
+        inp = message['input']
         try: 
-            op = subprocess.run([f"{cmd}"], check=True,universal_newlines = True, stdout = subprocess.PIPE)
-
+            op = subprocess.Popen([cmd, inp], stdin=subprocess.PIPE, stdout=sys.stdout)
+        
         except subprocess.CalledProcessError as op:
-            print(op)
             print(f"Process unexpected exit {op.returncode}")
             f = open(f"crashes/crash_{abs(op.returncode)}_{time.time()}","w")
             f.write(inp)
             f.close()
             exit()
 
-    def blob_consumer(ch, method, properties, message):
+    def blob_consumer(self,ch, method, properties, message):
+        print(message.decode("utf-8"))
         try:
-            decoded_message = json.loads(message.decode("utf-8"))
+            blob = json.loads(message.decode("utf-8"))
         except Exception as e:
             print(f"[Client error] failed trying to decode the message {e}")
         ch.basic_ack(delivery_tag=method.delivery_tag)
-        blob = b64decode(decoded_message)
-        print(f"Succesfully decoded the blob {blob}")
+        #blob = b64decode(decoded_message)
+        self.run_subprocess(blob)
+
 
     def start_exploit_consumer(self):
         # Connect to the result queue - consumer
