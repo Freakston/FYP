@@ -3,3 +3,4 @@ pika
 dnspython
 podman
 colorama
+pyradamsa
