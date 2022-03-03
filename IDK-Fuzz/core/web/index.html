@@ -17,7 +17,7 @@
 <body>
   <header id="start">
     <div class="main">
-      <h1 class="logo"><a href="https://github.com">IDK</a></h1>
+      <a class="logo" href="https://github.com/Freakston/FYP/tree/master/">IDK</a>
       <nav id="main-nav">
         <ul>
           <li class="inactive"><a href="stats.html">Stats</a></li>
@@ -30,11 +30,20 @@
     <h1 class="banner">
       IDK Fuzzer: Fill in the details to start fuzzing
     </h1>
-    <form class="details">
-      <label>Name:</label>
-      <input type="text"><br>
-      <label>Type:</label>
-      <input type="text">
+    <form class="details-form">
+      <label for="aname">Author Name: </label>
+      <input type="text" id="aname" required>
+      <label for="bname">Binary Name: </label>
+      <input type="text" id="bname" required>
+      <label for="mcount">Mutator Count: </label>
+      <input type="number" id="mcount" required>
+      <label for="fcount">Fuzzer Count: </label>
+      <input type="number" id="fcount" required>
+      <label for="iname">Image Name: </label>
+      <input type="text" id="iname" required>
+      <label for="bin">Select Binary: </label>
+      <input type="file" id="bin" required>
+      <input type="submit" value="Submit">
     </form>
   </section>
   <script src=script.js></script>
