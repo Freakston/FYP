@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <script src="jquery-3.6.0.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+  <title>IDK Fuzzer</title>
+</head>
+
+<body>
+  <header id="start">
+    <div class="main">
+      <h1 class="logo"><a href="https://github.com">IDK</a></h1>
+      <nav id="main-nav">
+        <ul>
+          <li class="current"><a href="#start">Stats</a></li>
+          <li class="inactive"><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section class="main-content">
+    <h1 class="banner">
+      All the stats available here
+    </h1>
+    <div class="wrapper">
+      <div class="arrow-right"></div>
+      <p class="prev">Previous fuzzjobs (Click to expand)</p>
+    </div>
+    <div class="prev-items">
+      <ul class="items">
+        <!-- This will be added dynamically by js-->
+        <li><a href="details.html?name=prevfirst">This is the first entry</a></li>
+        <li><a href="details.html?name=prevsecond">This is the second entry</a></li>
+        <li><a href="details.html?name=prevthird">This is the third entry</a></li>
+        <li><a href="details.html?name=prevfourth">This is the fourth entry</a></li>
+      </ul>
+    </div>
+    <div class="wrapper">
+      <div class="arrow-down"></div>
+      <p class="curr">Current fuzzjobs (Click to hide)</p>
+    </div>
+    <div class="curr-items">
+      <ul class="items">
+        <!-- This will be added dynamically by js-->
+        <li><a href="details.html?name=currfirst">This is the first entry</a></li>
+        <li><a href="details.html?name=currsecond">This is the second entry</a></li>
+        <li><a href="details.html?name=currthird">This is the third entry</a></li>
+        <li><a href="details.html?name=currfourth">This is the fourth entry</a></li>
+      </ul>
+    </div>
+  </section>
+  <script src=script-stats.js></script>
+</body>
+
+</html>
