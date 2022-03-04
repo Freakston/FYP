@@ -38,7 +38,7 @@ Fuzzjob{
 
 class podmanManager():
     def __init__(self) -> None:
-        self.url = f"http://{os.environ['POD']}:16969/v1.40.0/libpod/"
+        self.url = f"http://127.0.0.1:6969/v1.40.0/libpod/"
         self.conts = {}
         self.popContainers()
     
@@ -54,8 +54,7 @@ class podmanManager():
         for id in self.conts.keys():
             print(f"Name:{self.conts[id]:<40} Id:{id}")
 
-    def startContainer(self,cont):
-        name = self.conts[id]
+    def startContainer(self,name):
         response = requests.post(self.url+f"containers/{name}/start")
         if response.status_code != 204:
             print(f"{Fore.RED}Failed staring the container -> {response.text}")
@@ -128,21 +127,35 @@ class podmanManager():
             print(f"{Fore.RED}Failed to create the pod {response.text}")
 
         # Now that we have the pod lets launch the containers
-        Image = Fuzzjob['Image']
         podName = pod['Name']
-        for podcnt in range(Fuzzjob['count']):
+        for podcnt in range(Fuzzjob['fcount']):
             cont = {
-                "Image": Image,
-                "Name": podName+'_'+str(podcnt),
+                "Image": Fuzzjob['fImage'],
+                "Name": podName+'_'+ "fuzz_"+str(podcnt),
                 "pod": podName
             }
             print(f"{Fore.GREEN} Calling create pod with cont as {cont}")
             response = requests.post(self.url+"containers/create", json=cont)
             if response.status_code != 201:
-                print(f"{Fore.RED}Failed to launch container No. {podcnt} reason {response.text}")
+                print(f"{Fore.RED}Failed to launch Fuzzing container No. {podcnt} reason {response.text}")
                 return
+            self.startContainer(cont['Name'])
+        print(f"{Fore.BLUE} Finished creating fuzzing containers")
+
+        for podcnt in range(Fuzzjob['mcount']):
+            cont = {
+                "Image": Fuzzjob['mImage'],
+                "Name": podName+'_'+ "mut_"+str(podcnt),
+                "pod": podName
+            }
+            print(f"{Fore.GREEN} Calling create pod with cont as {cont}")
+            response = requests.post(self.url+"containers/create", json=cont)
+            if response.status_code != 201:
+                print(f"{Fore.RED}Failed to launch Mutation container No. {podcnt} reason {response.text}")
+                return
+            self.startContainer(cont['Name'])
         
-        print(f"{Fore.BLUE} Finished creating containers")
+        print(f"{Fore.BLUE} Finished mutation creating containers")
 
     def healthCheck(self,name):
         # HEALTHCHECK [OPTIONS] CMD command

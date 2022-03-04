@@ -19,3 +19,25 @@ struct appData{
     char* extension
 }
 ```
+
+## Message Types
+
+Job entry
+```
+Fuzzjob = {
+    "FuzzNo": 1,
+    "appName": "name",
+    "count": 3,
+    "Image": "idk-fuzz:latest"
+}
+```
+
+Sent by mutator to the queue for consumption
+```
+blob = {
+    appName = "sample"
+    input = "data"
+}
+
+```
+

@@ -13,10 +13,14 @@ class Mutation():
         self.data = data
 
     def getinp(self):
-        return self.rad.fuzz(self.data)
+        tmp = self.rad.fuzz(self.data)
+        print(tmp , "-" ,type(tmp))
+        return tmp
 
     def getsinp(self, seed):
-        return self.rad.fuzz(self.data, seed)
+        tmp = self.rad.fuzz(self.data, seed)
+        print(tmp , "-" ,type(tmp))
+        return tmp
 
     def run(self):
         self.data = "This is the initial string".encode()
@@ -24,7 +28,7 @@ class Mutation():
             self.data = self.getinp()
             self.send_blob(self.getinp())
 
-    def send_blob(self, data):
+    def send_blob(self,data):
         message = {
             "exe": "simple-inp",
             "input": b64encode(data).decode()
