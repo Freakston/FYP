@@ -4,12 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
-  <script src="jquery-3.6.0.js"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/main.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  <script src="/scripts/jquery-3.6.0.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
   <title>IDK Fuzzer</title>
 </head>
@@ -21,7 +18,7 @@
       <nav id="main-nav">
         <ul>
           <li class="current"><a href="#start">Stats</a></li>
-          <li class="inactive"><a href="index.html">Home</a></li>
+          <li class="inactive"><a href="/">Home</a></li>
         </ul>
       </nav>
     </div>
@@ -37,10 +34,10 @@
     <div class="prev-items">
       <ul class="items">
         <!-- This will be added dynamically by js -->
-        <li><a href="details.html?name=prevfirst" target="_none">This is the first entry</a></li>
-        <li><a href="details.html?name=prevsecond" target="_none">This is the second entry</a></li>
-        <li><a href="details.html?name=prevthird" target="_none">This is the third entry</a></li>
-        <li><a href="details.html?name=prevfourth" target="_none">This is the fourth entry</a></li>
+        <li><a href="/details/?name=prevfirst" target="_none">This is the first entry</a></li>
+        <li><a href="/details/?name=prevsecond" target="_none">This is the second entry</a></li>
+        <li><a href="/details/?name=prevthird" target="_none">This is the third entry</a></li>
+        <li><a href="/details/?name=prevfourth" target="_none">This is the fourth entry</a></li>
       </ul>
     </div>
     <div class="wrapper">
@@ -50,14 +47,14 @@
     <div class="curr-items">
       <ul class="items">
         <!-- This will be added dynamically by js -->
-        <li><a href="details.html?name=currfirst" target="_none">This is the first entry</a></li>
-        <li><a href="details.html?name=currsecond" target="_none">This is the second entry</a></li>
-        <li><a href="details.html?name=currthird" target="_none">This is the third entry</a></li>
-        <li><a href="details.html?name=currfourth" target="_none">This is the fourth entry</a></li>
+        <li><a href="/details/?name=currfirst" target="_none">This is the first entry</a></li>
+        <li><a href="/details/?name=currsecond" target="_none">This is the second entry</a></li>
+        <li><a href="/details/?name=currthird" target="_none">This is the third entry</a></li>
+        <li><a href="/details/?name=currfourth" target="_none">This is the fourth entry</a></li>
       </ul>
     </div>
   </section>
-  <script src=script-stats.js></script>
+  <script src=/scripts/script-stats.js></script>
 </body>
 
 </html>

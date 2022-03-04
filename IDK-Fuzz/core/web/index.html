@@ -4,12 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
-  <script src="jquery-3.6.0.js"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/main.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  <script src="/scripts/jquery-3.6.0.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>-->
   <title>IDK Fuzzer</title>
 </head>
@@ -20,7 +17,7 @@
       <a class="logo" href="https://github.com/Freakston/FYP/tree/master/">IDK</a>
       <nav id="main-nav">
         <ul>
-          <li class="inactive"><a href="stats.html">Stats</a></li>
+          <li class="inactive"><a href="stats">Stats</a></li>
           <li class="current"><a href="#start">Home</a></li>
         </ul>
       </nav>
@@ -30,23 +27,23 @@
     <h1 class="banner">
       IDK Fuzzer: Fill in the details to start fuzzing
     </h1>
-    <form class="details-form">
+    <form class="details-form" method="POST" encType="multipart/form-data" action="/stats">
       <label for="aname">Author Name: </label>
-      <input type="text" id="aname" required>
+      <input type="text" name="aname" required>
       <label for="bname">Binary Name: </label>
-      <input type="text" id="bname" required>
+      <input type="text" name="bname" required>
       <label for="mcount">Mutator Count: </label>
-      <input type="number" id="mcount" required>
+      <input type="number" name="mcount" required>
       <label for="fcount">Fuzzer Count: </label>
-      <input type="number" id="fcount" required>
+      <input type="number" name="fcount" required>
       <label for="iname">Image Name: </label>
-      <input type="text" id="iname" required>
+      <input type="text" name="iname" required>
       <label for="bin">Select Binary: </label>
-      <input type="file" id="bin" required>
+      <input type="file" name="bin" required>
       <input type="submit" value="Submit">
     </form>
   </section>
-  <script src=script.js></script>
+  <script src=/scripts/script.js></script>
 </body>
 
 </html>
