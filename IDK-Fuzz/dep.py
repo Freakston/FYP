@@ -4,7 +4,7 @@ import json
 from core.Utils.poder import podmanManager
 #from core.Utils.mongo import Mongo
 
-class dep():
+class Dep():
     def __init__(self) -> None:
         self.rab = rabConnect()
         #self.mong = Mongo()
@@ -25,6 +25,6 @@ class dep():
     def start(self):
         self.rab.basic_consume(queue='dep-queue', on_message_callback=self.callback, auto_ack=True)
         self.rab.start_consuming()
-    
-Dep = dep()
-Dep.start()
+
+dep = Dep()
+dep.start()
