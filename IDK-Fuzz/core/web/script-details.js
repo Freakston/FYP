@@ -4,4 +4,4 @@ var queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var term = urlParams.get("name");
 
-$("p").text(term);
+$("h1").text("Details of the job "+term);

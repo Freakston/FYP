@@ -6,7 +6,7 @@ $(document).ready(function () {
     $(".prev").on("click",function(){
         $(".prev-items").slideToggle();
         if(!prevOpen){
-            $(".prev").text("Previous fuzzjobs (Click to hide)");
+            $(".prev").text("Previous fuzzjobs (Click on one to see the details)");
             $(".prev").prev().attr('class', 'arrow-down');
             prevOpen = true;
         }
@@ -19,7 +19,7 @@ $(document).ready(function () {
     $(".curr").on("click",function(){
         $(".curr-items").slideToggle();
         if(!currOpen){
-            $(".curr").text("Current fuzzjobs (Click to hide)");
+            $(".curr").text("Current fuzzjobs (Click on one to see the details)");
             $(".curr").prev().attr('class', 'arrow-down');
             currOpen = true;
         }
