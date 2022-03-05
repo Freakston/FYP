@@ -1,10 +1,5 @@
 // jQuery
 $(document).ready(function () {
-
-    setInterval(function(){
-        location.reload();
-    }, 5000);
-
     var prevOpen = false;
     var currOpen = true;
     $(".prev-items").slideUp(0);
