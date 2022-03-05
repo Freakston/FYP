@@ -90,6 +90,8 @@ class Fuzzer():
         
         # Send a message back to stat-queue every 10 seconds? or 2000 iterations?
         # whichever tradeoff causes less perf diff.
+        # the server should for at a predefined sync time fetch messages from stat-queue
+        # and update the onboard stats.
         
         if (self.stats.cases%400 == 0):
             elapsed = time.time() - self.start
