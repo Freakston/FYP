@@ -55,6 +55,10 @@
     </div>
   </section>
   <script src=/scripts/script-stats.js></script>
+  <script>
+    if(window.history.replaceState){
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
 </body>
-
 </html>
