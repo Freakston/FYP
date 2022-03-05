@@ -14,12 +14,12 @@ class Mutation():
 
     def getinp(self):
         tmp = self.rad.fuzz(self.data)
-        print(tmp , "-" ,type(tmp))
+        # print(tmp , "-" ,type(tmp))
         return tmp
 
     def getsinp(self, seed):
         tmp = self.rad.fuzz(self.data, seed)
-        print(tmp , "-" ,type(tmp))
+        # print(tmp , "-" ,type(tmp))
         return tmp
 
     def run(self):
@@ -30,7 +30,7 @@ class Mutation():
 
     def send_blob(self,data):
         message = {
-            "exe": "simple-inp",
+            "exe": "/home/silverf3lix/projects/FYP/IDK-Fuzz/tests/sample",
             "input": b64encode(data).decode()
         }
         rabPublishMessage(self.channel,message)
