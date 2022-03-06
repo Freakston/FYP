@@ -6,3 +6,5 @@
 - Run `npm install nodemon -g` to install nodemon as global.
 - Now run `nodemon app`.
 - Webpage will be live at `localhost:1337`.
+
+All Uploaded files will be under ./uploads
