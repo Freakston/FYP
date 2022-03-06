@@ -1,3 +1,8 @@
 from core.Fuzzing.Fuzzing import Fuzzer
-f = Fuzzer()
-f.start_exploit_consumer()
+import threading
+
+def worker():
+    f = Fuzzer()
+    f.start_exploit_consumer()
+
+worker()
