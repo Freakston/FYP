@@ -6,7 +6,7 @@ import threading
 
 
 def run_posix():
-    cmd = b"/home/silverf3lix/projects/FYP/IDK-Fuzz/tests/sample"
+    cmd = b"" # Add the binary location here
     inp = b'inp'
 
     c2pread, c2pwrite = os.pipe()
@@ -18,7 +18,7 @@ def run_posix():
     os.close(c2pwrite)
 
     f = os.fdopen(c2pread, "r")
-    f.read()  # Returns "Hello world!\n"
+    print(f.read())  # Returns "Hello world!\n"
 
     return os.waitpid(pid, 0)
 
@@ -35,7 +35,8 @@ def worker(id):
             cps = float(count)/(time.time() - start)
             print("fcps = ",cps)
 
-
+print(f"Got return value as {run_posix()}")
+'''
 threads = []
 for i in range(16):
     threads.append(threading.Thread(target=worker, args=(i,)))
@@ -45,3 +46,4 @@ for thread in threads:
 
 while threading.active_count() > 0:
     time.sleep(0.1)
+'''

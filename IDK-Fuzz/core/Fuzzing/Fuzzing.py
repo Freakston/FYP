@@ -21,9 +21,8 @@ class Fuzzer():
         self.stats = Stats()
 
     def run_posix(self,message):
-        
-        cmd = message['exe'].encode()
-        inp = message['input'].encode()
+        cmd = f"src/tests/{message['exe']}".encode() # Fix the binary location again
+        inp = b64decode(message['input'])
         c2pread, c2pwrite = os.pipe()
         # Tell posix_spawn to replace the child's stdout with the write end of the pipe.
         file_actions = FileActions()
@@ -35,9 +34,9 @@ class Fuzzer():
         # Close the child's end of the socket in the parent.
         os.close(c2pwrite)
         # Replace FD with a file object.
-        f = os.fdopen(c2pread, "r")
+        f = os.fdopen(c2pread, "rb")
         # And get the output.
-        f.read()  # Returns "Hello world!\n"
+        #f.read()  # Returns "Hello world!\n"
         # Clean up the child process.
         self.stats.cases += 1
         return os.waitpid(pid, 0)  # Returns (pid, <returncode>)
@@ -60,17 +59,17 @@ class Fuzzer():
             f.write(inp)
             f.close()
             exit()
+        self.stats.cases += 1
 
     def run_subprocess_stdin(self, message):
         cmd = f"src/tests/{message['exe']}"
         inp = message['input']
         inp = b64decode(inp)
         try:
-            op = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=sys.stdout)
+            op = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL)
             op.stdin.write(inp)
-            op_out = op.communicate()[0]
+            op.communicate()[0]
             op.stdin.close()
-            print(op_out)
 
         except subprocess.CalledProcessError as op:
             print(f"Process unexpected exit {op.returncode}")
@@ -78,6 +77,7 @@ class Fuzzer():
             f.write(inp)
             f.close()
             exit()
+        self.stats.cases += 1
 
     def blob_consumer(self,ch, method, properties, message):
         try:
@@ -85,20 +85,18 @@ class Fuzzer():
         except Exception as e:
             print(f"[Client error] failed trying to decode the message {e}")
         ch.basic_ack(delivery_tag=method.delivery_tag)
-        #blob = b64decode(decoded_message)
-        # self.run_subprocess_stdin(blob)
         
         # Send a message back to stat-queue every 10 seconds? or 2000 iterations?
         # whichever tradeoff causes less perf diff.
         # the server should for at a predefined sync time fetch messages from stat-queue
         # and update the onboard stats.
-        
+
         if (self.stats.cases%400 == 0):
             elapsed = time.time() - self.start
             print("[*] fc/s ",float(self.stats.cases)/elapsed)
-            
-        self.run_posix(blob)
-
+        
+        #self.run_posix(blob)
+        self.run_subprocess_stdin(blob)
 
     def start_exploit_consumer(self):
         # Connect to the result queue - consumer
@@ -107,7 +105,3 @@ class Fuzzer():
             queue="task-queue", on_message_callback=self.blob_consumer)
 
         self.channel.start_consuming()
-
-
-    
-

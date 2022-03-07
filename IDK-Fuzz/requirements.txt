@@ -4,3 +4,4 @@ dnspython
 podman
 colorama
 pyradamsa
+posix_spawn
