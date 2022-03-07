@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/assets/main.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  <script src="/scripts/jquery-3.6.0.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+  <title>IDK Fuzzer</title>
+</head>
+
+<body>
+  <header id="start">
+    <div class="main">
+      <a class="logo" href="https://github.com/Freakston/FYP/tree/master/">IDK</a>
+      <nav id="main-nav">
+        <ul>
+          <li class="current"><a href="#start">Stats</a></li>
+          <li class="inactive"><a href="/">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section class="main-content">
+    <h1 class="banner">
+      Fuzzjobs Summary
+    </h1>
+    <div class="wrapper">
+      <div class="arrow-right"></div>
+      <p class="prev">Previous fuzzjobs (Click to expand)</p>
+    </div>
+    <div class="prev-items">
+      <ul class="items">
+        <% for(var i=0; i<data.inactive.length; i++){ %>
+        <li><a href="/details/?name=<%= data.inactive[i].jobname %>" target="_none"><%= data.inactive[i].jobname %> by <%= data.inactive[i].name %></a></li>
+        <% } %>
+      </ul>
+    </div>
+    <div class="wrapper">
+      <div class="arrow-down"></div>
+      <p class="curr">Current fuzzjobs (Click on one to see the details)</p>
+    </div>
+    <div class="curr-items">
+      <ul class="items">
+        <% for(var i=0; i<data.active.length; i++){ %>
+          <li><a href="/details/?name=<%= data.active[i].jobname %>" target="_none"><%= data.active[i].jobname %> by <%= data.active[i].name %></a></li>
+          <% } %>
+      </ul>
+    </div>
+  </section>
+  <script src=/scripts/script-stats.js></script>
+  <script>
+    if(window.history.replaceState){
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+</body>
+</html>

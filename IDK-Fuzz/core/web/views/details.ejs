@@ -13,25 +13,19 @@
 
 <body class="details-body">
     <h1>
-        Summary of job <%= name %>
+        Summary of job <%= details.jobName %>
     </h1>
     <ul class="details-list">
-      <li> Name: Sourag asdas</li>
-      <li> TYpe: Job adasd asd</li>
-      <li> Started: who know</li>
-      <li> Number of containers: 150</li>
-      <li> Duration: verthe</li>
-      <li> Name: Sourag </li>
-      <li> TYpe: Job</li>
-      <li> Started: who knows</li>
-      <li> Number of containers: 150</li>
-      <li> Duration: verthe</li>
-      <li> Name: Sourag </li>
-      <li> TYpe: Job</li>
-      <li> Started: who knows</li>
-      <li> Number of containers: 150</li>
+      <li> Job Name: <%= details.jobName %></li>
+      <li> Author: <%= details.author %></li>
+      <li> Binary Name: <%= details.binName %></li>
+      <li> Running: <%= details.active %></li>
+      <li> Image Name: <%= details.imageName %></li>
+      <li> Mutator Count: <%= details.mcount %></li>
+      <li> Fuzzer Count: <%= details.fcount %> </li>
+      <li> No. of testcases: <%= details.testCases %></li>
+      <li> Start Date: <%= details.startDate %></li>
+      <li> Start Time: <%= details.startTime %></li>
     </ul>
-    <script src=/scripts/script-details.js></script>
 </body>
-
 </html>
