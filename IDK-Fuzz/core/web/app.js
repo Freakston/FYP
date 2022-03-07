@@ -19,10 +19,10 @@ app.post('/stats', urlEncodedParser,async function (req, res) {
     binary.mv(path, function (err) { if (err) throw err; });
 
     rabbit(req.body);
-    mongo.Save(req.body);
+    await mongo.Save(req.body);
 
     let items = await mongo.findAll();
-    res.render('stats.ejs', {data: items});
+    res.render('stats', {data: items});
 });
 
 app.get('/', function (req, res) {
@@ -31,12 +31,16 @@ app.get('/', function (req, res) {
 
 app.get('/stats', async function (req, res) {
     let items = await mongo.findAll();
-    res.render('stats.ejs', {data: items});
+    res.render('stats', {data: items});
 });
 
-app.get('/details/',async function (req, res) {
+app.get('/details',async function (req, res) {
     let item = await mongo.findItem(req.query.name);
     res.render('details', {details: item});
+});
+
+app.get('/update',async function(req, res){
+    await mongo.Update(req.query);
 });
 
 app.listen(1337);

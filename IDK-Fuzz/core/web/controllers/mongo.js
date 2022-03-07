@@ -13,7 +13,9 @@ const jobSchema = new Schema({
     fcount: Number,
     testCases: Number,
     startDate: String,
-    startTime: String
+    startTime: String,
+    endDate: String,
+    endTime: String
 });
 const Jobs = mongoose.model('jobs', jobSchema);
 
@@ -25,7 +27,7 @@ mongoose.connection.once('open', function () {
     console.log("Erro! Could not connect to db");
 });
 
-module.exports.Save = function (data) {
+module.exports.Save =async function (data) {
     let date = new Date();
     let job = new Jobs({
         active: true,
@@ -37,10 +39,12 @@ module.exports.Save = function (data) {
         fcount: data.fcount,
         testCases: 0,
         startDate: date.toLocaleDateString(),
-        startTime: date.toLocaleTimeString()
+        startTime: date.toLocaleTimeString(),
+        endDate: "",
+        endTime: ""
     });
 
-    job.save().then(function () {
+    await job.save().then(function () {
         if (job.isNew) {
             console.log("Error! Could not insert into db");
         }
@@ -67,9 +71,27 @@ module.exports.findAll = async function () {
 };
 
 module.exports.findItem = async function(jname){
-    let item = {};
+    let item;
     await Jobs.find({jobName: jname}).then(function(res){
         item = res;
     });
     return item[0];
+};
+
+module.exports.Update = async function(query){
+    if(query.entry === "active" && query.value === "false"){
+        let date = new Date();
+        await Jobs.updateOne({jobName: query.job}, {$set: {active: false,
+             endDate: date.toLocaleDateString(),endTime: date.toLocaleTimeString()}}).then(function(){
+            console.log("Success! Entry active updated");
+        });
+    }
+    else if(query.entry === "testCases"){
+        await Jobs.updateOne({jobName: query.job}, {$set: {testCases: query.value}}).then(function(){
+            console.log("Success! Entry testCases updated");
+        });
+    }
+    else{
+        console.log("Error! Updating an invalid entry");
+    }
 };
