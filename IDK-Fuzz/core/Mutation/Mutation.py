@@ -30,7 +30,7 @@ class Mutation():
 
     def send_blob(self,data):
         message = {
-            "exe": "/home/silverf3lix/projects/FYP/IDK-Fuzz/tests/sample",
+            "exe": "simple-arg",
             "input": b64encode(data).decode()
         }
         rabPublishMessage(self.channel,message)
